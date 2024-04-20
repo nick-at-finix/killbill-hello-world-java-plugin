@@ -5,9 +5,9 @@ on:
       plugin:
         description: 'Plugin to release'
         required: true
-        type: string
+        type: choice
         options:
-          - 'hello-world'
+          - 'hello-world-plugin'
 jobs:
   publish:
     runs-on: ubuntu-latest
