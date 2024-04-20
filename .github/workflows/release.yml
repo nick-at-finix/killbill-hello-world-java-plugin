@@ -1,7 +1,7 @@
 name: Publish package to GitHub Packages
 on:
-  release:
-    types: [created]
+  push:
+    branches: [ master ]
   workflow_dispatch: {}
 jobs:
   publish:
@@ -10,12 +10,21 @@ jobs:
       contents: read
       packages: write
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
         with:
           java-version: '11'
-          distribution: 'temurin'
+          distribution: 'adopt'
+      - name: Publish snapshot package
+        if: github.event_name == 'workflow_dispatch'
+        run: mvn --batch-mode deploy -Dmaven.resolver.transport=wagon
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Publish package
-        run: mvn --batch-mode deploy
+        if: github.event_name != 'workflow_dispatch'
+        run: |
+          awk '/<version>.*-SNAPSHOT<\/version>/ {gsub(/-SNAPSHOT/, "", $0)} {print}' \
+            pom.xml > temp.xml && mv temp.xml pom.xml
+          mvn --batch-mode deploy -Dmaven.resolver.transport=wagon
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

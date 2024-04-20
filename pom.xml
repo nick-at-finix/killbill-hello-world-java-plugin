@@ -30,13 +30,6 @@
     <packaging>bundle</packaging>
     <name>Kill Bill OSGI Hello World bundle</name>
     <description>Kill Bill Hello World plugin</description>
-    <distributionManagement>
-        <repository>
-            <id>github</id>
-            <name>GitHub Packages</name>
-            <url>https://maven.pkg.github.com/nick-at-finix/killbill-hello-world-java-plugin</url>
-        </repository>
-    </distributionManagement>
     <scm>
         <connection>scm:git:git://github.com/killbill/killbill-hello-world-java-plugin.git</connection>
         <developerConnection>scm:git:git@github.com:killbill/killbill-hello-world-java-plugin.git</developerConnection>
@@ -46,6 +39,18 @@
         <system>Github</system>
         <url>https://github.com/killbill/killbill-hello-world-java-plugin/issues</url>
     </issueManagement>
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub Packages</name>
+            <url>https://maven.pkg.github.com/nick-at-finix/killbill-hello-world-java-plugin</url>
+        </repository>
+        <snapshotRepository>
+            <id>github</id>
+            <name>Snapshot GitHub Packages</name>
+            <url>https://maven.pkg.github.com/nick-at-finix/killbill-hello-world-java-plugin</url>
+        </snapshotRepository>
+    </distributionManagement>
     <properties>
         <check.skip-dependency>true</check.skip-dependency>
         <check.skip-dependency-scope>true</check.skip-dependency-scope>
