@@ -31,6 +31,13 @@
     <name>Kill Bill OSGI Hello World bundle</name>
     <description>Kill Bill Hello World plugin</description>
     <url>http://github.com/killbill/killbill-hello-world-java-plugin</url>
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub Packages</name>
+            <url>https://maven.pkg.github.com/nick-at-finix/hello-world-plugin</url>
+        </repository>
+    </distributionManagement>
     <scm>
         <connection>scm:git:git://github.com/killbill/killbill-hello-world-java-plugin.git</connection>
         <developerConnection>scm:git:git@github.com:killbill/killbill-hello-world-java-plugin.git</developerConnection>
