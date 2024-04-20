@@ -1,0 +1,33 @@
+name: Release a new version or snapshot of a single library
+on:
+  workflow_call:
+  workflow_dispatch:
+permissions:
+  id-token: write
+  contents: write
+  packages: write
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v2
+        with:
+          distribution: 'temurin'
+          java-version: 11
+          cache: gradle
+      - name: set git config
+        run: |
+          git config user.name ${{ github.actor }}
+          git config user.email ${{ github.actor }}@github.com
+      - name: release plugin
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_ACTOR: ${{ github.actor }}
+          PACKAGE_READONLY_TOKEN: ${{ secrets.PACKAGE_READONLY_TOKEN }}
+        run: mvn clean publish -DskipTests
+      - name: tag ${{ inputs.library }} release commit
+        run: |
+          RELEASE_TAG="RELEASE.${{ inputs.library }}.${VERSION}"
+          git tag ${RELEASE_TAG}
+          git push origin ${RELEASE_TAG}
