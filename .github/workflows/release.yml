@@ -1,8 +1,13 @@
 name: Publish package to GitHub Packages
 on:
-  push:
-    branches: [ master ]
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      plugin:
+        description: 'Plugin to release'
+        required: true
+        type: string
+        options:
+          - 'hello-world'
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -15,13 +20,16 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt'
-      - name: Publish snapshot package
-        if: github.event_name == 'workflow_dispatch'
+      - name: Publish SNAPSHOT package
+        # if not master branch, publish a snapshot
+        if: github.ref != 'refs/heads/main'
+        working-directory: ${{ github.event.inputs.plugin }}
         run: mvn --batch-mode deploy -Dmaven.resolver.transport=wagon
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Publish package
-        if: github.event_name != 'workflow_dispatch'
+        if: github.ref == 'refs/heads/main'
+        working-directory: ${{ github.event.inputs.plugin }}
         run: |
           awk '/<version>.*-SNAPSHOT<\/version>/ {gsub(/-SNAPSHOT/, "", $0)} {print}' \
             pom.xml > temp.xml && mv temp.xml pom.xml

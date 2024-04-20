@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Copyright 2010-2014 Ning, Inc.
-  ~ Copyright 2014-2020 Groupon, Inc
-  ~ Copyright 2020-2020 Equinix, Inc
-  ~ Copyright 2014-2020 The Billing Project, LLC
+  ~ Copyright 2020-2024 Equinix, Inc
+  ~ Copyright 2014-2024 The Billing Project, LLC
   ~
   ~ The Billing Project licenses this file to you under the Apache License, version 2.0
   ~ (the "License"); you may not use this file except in compliance with the
@@ -20,9 +18,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.kill-bill.billing</groupId>
-        <artifactId>killbill-oss-parent</artifactId>
-        <version>0.146.30</version>
+        <groupId>com.finixpayments</groupId>
+        <artifactId>internal-killbill-plugins</artifactId>
+        <version>1.0-SNAPSHOT</version>
     </parent>
     <groupId>org.kill-bill.billing.plugin.java</groupId>
     <artifactId>hello-world-plugin</artifactId>
